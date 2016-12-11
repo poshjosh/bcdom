@@ -16,10 +16,10 @@
 
 package com.bc.dom.metatags;
 
-import com.bc.dom.Dom;
 import java.util.Set;
 import java.util.regex.Pattern;
 import org.htmlparser.util.NodeList;
+import com.bc.dom.HtmlPageDom;
 
 /**
  * Extract Open Graph meta data
@@ -32,7 +32,7 @@ public class OpenGraph extends AbstractMetadata {
         super(url, nodeList, defaultAttributeNames(true));
     }
 
-    public OpenGraph(Dom dom) {
+    public OpenGraph(HtmlPageDom dom) {
         super(dom, defaultAttributeNames(true));
     }
 

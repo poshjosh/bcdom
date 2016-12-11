@@ -16,8 +16,7 @@
 
 package com.bc.dom.metatags;
 
-import com.bc.dom.SimpleDom;
-import com.bc.dom.Dom;
+import com.bc.dom.HtmlPageDomImpl;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +34,7 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.HasAttributeRegexFilter;
 import org.htmlparser.tags.MetaTag;
 import org.htmlparser.util.NodeList;
+import com.bc.dom.HtmlPageDom;
 
 /**
  * @author Chinomso Bassey Ikwuagwu on Oct 21, 2016 11:46:33 AM
@@ -45,7 +45,7 @@ public class AbstractMetadata implements Metadata {
 //<meta name="geo.position" content="6.4548790;3.4245980"/>
 //<meta name="geo.region" content="NG-Lagos"/>
 
-    private final Dom dom;
+    private final HtmlPageDom dom;
     
     private final List<String> attributeNames;
 
@@ -54,14 +54,14 @@ public class AbstractMetadata implements Metadata {
     }
     
     public AbstractMetadata(String url, NodeList nodeList, String [] defaultAttributeNames) {
-        this(new SimpleDom(url, url, nodeList), defaultAttributeNames);
+        this(new HtmlPageDomImpl(url, nodeList), defaultAttributeNames);
     }
     
-    public AbstractMetadata(Dom dom) {
+    public AbstractMetadata(HtmlPageDom dom) {
         this(dom, defaultAttributeNames());
     }
     
-    public AbstractMetadata(Dom dom, String [] defaultAttributeNames) {
+    public AbstractMetadata(HtmlPageDom dom, String [] defaultAttributeNames) {
         this.dom = Objects.requireNonNull(dom);
         this.attributeNames = Arrays.asList(requireNonNullOrEmpty(defaultAttributeNames));
     }
@@ -437,7 +437,7 @@ public class AbstractMetadata implements Metadata {
         return arr;
     }
 
-    public final Dom getDom() {
+    public final HtmlPageDom getDom() {
         return dom;
     }
 

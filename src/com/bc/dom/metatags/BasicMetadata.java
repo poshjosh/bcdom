@@ -16,8 +16,8 @@
 
 package com.bc.dom.metatags;
 
-import com.bc.dom.Dom;
 import org.htmlparser.util.NodeList;
+import com.bc.dom.HtmlPageDom;
 
 /**
  * @author Chinomso Bassey Ikwuagwu on Oct 22, 2016 4:38:51 PM
@@ -28,7 +28,7 @@ public class BasicMetadata extends AbstractMetadata {
         super(url, nodeList, defaultAttributeNames());
     }
 
-    public BasicMetadata(Dom dom) {
+    public BasicMetadata(HtmlPageDom dom) {
         super(dom, defaultAttributeNames());
     }
 

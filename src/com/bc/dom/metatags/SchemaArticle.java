@@ -16,9 +16,9 @@
 
 package com.bc.dom.metatags;
 
-import com.bc.dom.Dom;
 import java.util.Set;
 import org.htmlparser.util.NodeList;
+import com.bc.dom.HtmlPageDom;
 
 /**
  * Extract some <code>http://schema.org/Article</code> meta data
@@ -35,7 +35,7 @@ public class SchemaArticle extends SchemaCreativeWork {
         super(url, nodeList);
     }
 
-    public SchemaArticle(Dom dom) {
+    public SchemaArticle(HtmlPageDom dom) {
         super(dom);
     }
 

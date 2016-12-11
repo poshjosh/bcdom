@@ -1,6 +1,5 @@
 package com.bc.dom;
 
-import com.bc.dom.Dom;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,8 +7,6 @@ import java.util.List;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Tag;
-import org.htmlparser.filters.AndFilter;
-import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.NodeClassFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.tags.BodyTag;
@@ -17,11 +14,9 @@ import org.htmlparser.tags.MetaTag;
 import org.htmlparser.tags.TitleTag;
 import org.htmlparser.util.NodeList;
 
-public class SimpleDom implements Dom, Serializable {
+public class HtmlPageDomImpl extends DomatrixImpl implements HtmlPageDom, Serializable {
 
     private final String url;
-    private final String formattedUrl;
-    private final NodeList nodeList;
     private final List<MetaTag> metaTags;
     private MetaTag robots;
     private MetaTag keywords;
@@ -31,15 +26,9 @@ public class SimpleDom implements Dom, Serializable {
     private final TitleTag title;
     private final BodyTag body;
 
-    public SimpleDom(String url, NodeList nodes) {
-        this(url, url, nodes);
-    }
-
-    public SimpleDom(String url, String formattedUrl, NodeList nodes) {
-        
+    public HtmlPageDomImpl(String url, NodeList nodes) {
+        super(nodes);
         this.url = url;
-        this.formattedUrl = formattedUrl;
-        this.nodeList = nodes;
         
         NodeList metaNodes = nodes.extractAllNodesThatMatch(new TagNameFilter("META"), true);
         if(metaNodes == null || metaNodes.isEmpty()) {
@@ -108,63 +97,8 @@ public class SimpleDom implements Dom, Serializable {
     }
     
     @Override
-    public Node getElementById(String id) {
-        
-        NodeList nodes = this.getElementsByAttribute("id", id);
-        
-        return nodes == null || nodes.isEmpty() ? Node.BLANK_NODE : nodes.get(0);
-    }
-    
-    @Override
-    public NodeList getElementsByClassName(String className) {
-        
-        return this.getElementsByAttribute("class", className);
-    }
-    
-    @Override
-    public NodeList getElementsByTagName(String nodeName) {
-        
-        TagNameFilter filter = new TagNameFilter(nodeName);
-        
-        NodeList output = this.nodeList.extractAllNodesThatMatch(filter, true);
-        
-        return output;
-    }
-    
-    @Override
-    public NodeList getElementsByTagName(String nodeName, String attributeName, String attributeValue) {
-        
-        TagNameFilter tagNameFilter = new TagNameFilter(nodeName);
-        HasAttributeFilter hasAttributeFilter = new HasAttributeFilter(attributeName, attributeValue);
-        NodeFilter filter = new AndFilter(tagNameFilter, hasAttributeFilter);
-        
-        NodeList output = this.nodeList.extractAllNodesThatMatch(filter, true);
-        
-        return output;
-    }
-    
-    @Override
-    public NodeList getElementsByAttribute(String attributeName, String attributeValue) {
-        
-        return this.getElements(new HasAttributeFilter(attributeName, attributeValue));
-    }
-    
-    @Override
-    public NodeList getElements(NodeFilter filter) {
-        
-        NodeList output = this.nodeList.extractAllNodesThatMatch(filter, true);
-        
-        return output;
-    }
-    
-    @Override
     public String getURL() {
         return this.url;
-    }
-
-    @Override
-    public String getFormattedURL() {
-        return this.formattedUrl;
     }
 
     @Override
@@ -209,11 +143,6 @@ public class SimpleDom implements Dom, Serializable {
     }
 
     @Override
-    public NodeList getNodeList(){
-        return this.nodeList;
-    }
-
-    @Override
     public List<MetaTag> getMetaTags() {
         return this.metaTags;
     }
@@ -223,7 +152,7 @@ public class SimpleDom implements Dom, Serializable {
         StringBuilder builder = new StringBuilder();
         builder.append(getClass().getName());
         builder.append("{URL=").append(this.url);
-        builder.append(", Nodes=").append(this.nodeList == null ? null : this.nodeList.size());
+        builder.append(", Elements=").append(this.getElements() == null ? null : this.getElements().size());
         builder.append('}');
         return builder.toString();
     }
