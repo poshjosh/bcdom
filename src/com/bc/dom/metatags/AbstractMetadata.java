@@ -16,7 +16,7 @@
 
 package com.bc.dom.metatags;
 
-import com.bc.dom.HtmlPageDomImpl;
+import com.bc.dom.HtmlDocumentImpl;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +34,7 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.HasAttributeRegexFilter;
 import org.htmlparser.tags.MetaTag;
 import org.htmlparser.util.NodeList;
-import com.bc.dom.HtmlPageDom;
+import com.bc.dom.HtmlDocument;
 
 /**
  * @author Chinomso Bassey Ikwuagwu on Oct 21, 2016 11:46:33 AM
@@ -45,7 +45,7 @@ public class AbstractMetadata implements Metadata {
 //<meta name="geo.position" content="6.4548790;3.4245980"/>
 //<meta name="geo.region" content="NG-Lagos"/>
 
-    private final HtmlPageDom dom;
+    private final HtmlDocument dom;
     
     private final List<String> attributeNames;
 
@@ -54,14 +54,14 @@ public class AbstractMetadata implements Metadata {
     }
     
     public AbstractMetadata(String url, NodeList nodeList, String [] defaultAttributeNames) {
-        this(new HtmlPageDomImpl(url, nodeList), defaultAttributeNames);
+        this(new HtmlDocumentImpl(url, nodeList), defaultAttributeNames);
     }
     
-    public AbstractMetadata(HtmlPageDom dom) {
+    public AbstractMetadata(HtmlDocument dom) {
         this(dom, defaultAttributeNames());
     }
     
-    public AbstractMetadata(HtmlPageDom dom, String [] defaultAttributeNames) {
+    public AbstractMetadata(HtmlDocument dom, String [] defaultAttributeNames) {
         this.dom = Objects.requireNonNull(dom);
         this.attributeNames = Arrays.asList(requireNonNullOrEmpty(defaultAttributeNames));
     }
@@ -152,11 +152,6 @@ public class AbstractMetadata implements Metadata {
         return null;
     }
 
-    private long freeMemory() {
-        Runtime r = Runtime.getRuntime();
-        return r.maxMemory() - r.totalMemory() - r.freeMemory();
-    }
-    
     @Override
     public Set<String> getImageUrls() {
         return Collections.EMPTY_SET;
@@ -437,7 +432,7 @@ public class AbstractMetadata implements Metadata {
         return arr;
     }
 
-    public final HtmlPageDom getDom() {
+    public final HtmlDocument getDom() {
         return dom;
     }
 

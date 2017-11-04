@@ -7,7 +7,7 @@ import org.htmlparser.util.NodeList;
 /**
  * @author Chinomso Bassey Ikwuagwu on Nov 15, 2016 12:26:24 PM
  */
-public interface Domatrix {
+public interface Document {
 
     NodeList getElements();
     

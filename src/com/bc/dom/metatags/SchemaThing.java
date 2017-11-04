@@ -18,7 +18,7 @@ package com.bc.dom.metatags;
 
 import java.util.Set;
 import org.htmlparser.util.NodeList;
-import com.bc.dom.HtmlPageDom;
+import com.bc.dom.HtmlDocument;
 
 /**
  * Extract some <code>http://schema.org/Thing</code> meta data
@@ -33,7 +33,7 @@ public class SchemaThing extends AbstractMetadata {
         super(url, nodeList, defaultAttributeNames());
     }
 
-    public SchemaThing(HtmlPageDom dom) {
+    public SchemaThing(HtmlDocument dom) {
         super(dom, defaultAttributeNames());
     }
 

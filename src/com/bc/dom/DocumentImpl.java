@@ -10,11 +10,11 @@ import org.htmlparser.util.NodeList;
 /**
  * @author Chinomso Bassey Ikwuagwu on Nov 15, 2016 1:08:53 PM
  */
-public class DomatrixImpl implements Domatrix {
+public class DocumentImpl implements Document {
 
     private final NodeList nodeList;
 
-    public DomatrixImpl(NodeList nodes) {
+    public DocumentImpl(NodeList nodes) {
         this.nodeList = nodes;
     }
     

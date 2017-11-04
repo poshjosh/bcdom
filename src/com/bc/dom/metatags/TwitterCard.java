@@ -18,7 +18,7 @@ package com.bc.dom.metatags;
 
 import java.util.Set;
 import org.htmlparser.util.NodeList;
-import com.bc.dom.HtmlPageDom;
+import com.bc.dom.HtmlDocument;
 
 /**
  * Extract twitter card meta data
@@ -32,7 +32,7 @@ public class TwitterCard extends AbstractMetadata {
         super(url, nodeList, defaultAttributeNames());
     }
 
-    public TwitterCard(HtmlPageDom dom) {
+    public TwitterCard(HtmlDocument dom) {
         super(dom, defaultAttributeNames());
     }
 
